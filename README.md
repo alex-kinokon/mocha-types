@@ -2,15 +2,9 @@
 
 > without globals
 
-This is just official version of `@types/mocha` package with [`globals`](https://github.com/mochajs/mocha/issues/956) stripped away.
+This is just official version of [`@types/mocha`](https://unpkg.com/browse/@types/mocha/index.d.ts) package with [`globals`](https://github.com/mochajs/mocha/issues/956) stripped away.
 
-# Install
-
-Just install/add it from the github repo (instead of `@types/mocha` from NPM):
-
-> yarn/pnpm add github:whitecolor/mocha-types
-
-And enjoy.
+# Usage
 
 ```ts
 import { describe, it, beforeEach, after } from "mocha";
