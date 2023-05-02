@@ -1,4 +1,4 @@
-// Type definitions for mocha 9.1
+// Type definitions for mocha 10.0
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -70,10 +70,7 @@ declare class Mocha {
    *
    * @see https://mochajs.org/api/mocha#reporter
    */
-  reporter(
-    reporter?: string | Mocha.ReporterConstructor,
-    reporterOptions?: any
-  ): this;
+  reporter(reporter?: string | Mocha.ReporterConstructor, reporterOptions?: any): this;
 
   /**
    * Set test UI to one of the built-in test interfaces.
@@ -661,6 +658,13 @@ declare namespace Mocha {
   let describe: SuiteFunction;
 
   /**
+   * Describe a pending suite.
+   *
+   * - _Only available when invoked via the mocha CLI._
+   */
+  let xdescribe: PendingSuiteFunction;
+
+  /**
    * Describes a test case.
    *
    * - _Only available when invoked via the mocha CLI._
@@ -1138,6 +1142,7 @@ declare namespace Mocha {
 
     constructor(title: string, fn?: Func | AsyncFunc);
 
+    id: string;
     title: string;
     fn: Func | AsyncFunc | undefined;
     body: string;
@@ -1303,10 +1308,7 @@ declare namespace Mocha {
     addListener(event: string, listener: (...args: any[]) => void): this;
     removeListener(event: string, listener: (...args: any[]) => void): this;
     prependListener(event: string, listener: (...args: any[]) => void): this;
-    prependOnceListener(
-      event: string,
-      listener: (...args: any[]) => void
-    ): this;
+    prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     emit(name: string, ...args: any[]): boolean;
   }
   // #endregion Runnable untyped events
@@ -1569,20 +1571,14 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/Mocha.Runner.html#hookUp
      */
-    protected hookUp(
-      name: string,
-      fn: (err?: any, errSuite?: Suite) => void
-    ): void;
+    protected hookUp(name: string, fn: (err?: any, errSuite?: Suite) => void): void;
 
     /**
      * Run hooks from the bottom up.
      *
      * @see https://mochajs.org/api/Mocha.Runner.html#hookDown
      */
-    protected hookDown(
-      name: string,
-      fn: (err?: any, errSuite?: Suite) => void
-    ): void;
+    protected hookDown(name: string, fn: (err?: any, errSuite?: Suite) => void): void;
 
     /**
      * Return an array of parent Suites from closest to furthest.
@@ -1618,18 +1614,9 @@ declare namespace Mocha {
     on(event: "waiting", listener: (rootSuite: Suite) => void): this;
     once(event: "waiting", listener: (rootSuite: Suite) => void): this;
     addListener(event: "waiting", listener: (rootSuite: Suite) => void): this;
-    removeListener(
-      event: "waiting",
-      listener: (rootSuite: Suite) => void
-    ): this;
-    prependListener(
-      event: "waiting",
-      listener: (rootSuite: Suite) => void
-    ): this;
-    prependOnceListener(
-      event: "waiting",
-      listener: (rootSuite: Suite) => void
-    ): this;
+    removeListener(event: "waiting", listener: (rootSuite: Suite) => void): this;
+    prependListener(event: "waiting", listener: (rootSuite: Suite) => void): this;
+    prependOnceListener(event: "waiting", listener: (rootSuite: Suite) => void): this;
     emit(name: "waiting", rootSuite: Suite): boolean;
   }
   // #endregion Runner "waiting" event
@@ -1673,10 +1660,7 @@ declare namespace Mocha {
     addListener(event: "suite end", listener: (suite: Suite) => void): this;
     removeListener(event: "suite end", listener: (suite: Suite) => void): this;
     prependListener(event: "suite end", listener: (suite: Suite) => void): this;
-    prependOnceListener(
-      event: "suite end",
-      listener: (suite: Suite) => void
-    ): this;
+    prependOnceListener(event: "suite end", listener: (suite: Suite) => void): this;
     emit(name: "suite end", suite: Suite): boolean;
   }
   // #endregion Runner "suite end" event
@@ -1698,10 +1682,7 @@ declare namespace Mocha {
     addListener(event: "test end", listener: (test: Test) => void): this;
     removeListener(event: "test end", listener: (test: Test) => void): this;
     prependListener(event: "test end", listener: (test: Test) => void): this;
-    prependOnceListener(
-      event: "test end",
-      listener: (test: Test) => void
-    ): this;
+    prependOnceListener(event: "test end", listener: (test: Test) => void): this;
     emit(name: "test end", test: Test): boolean;
   }
   // #endregion Runner "test end" event
@@ -1723,10 +1704,7 @@ declare namespace Mocha {
     addListener(event: "hook end", listener: (hook: Hook) => void): this;
     removeListener(event: "hook end", listener: (hook: Hook) => void): this;
     prependListener(event: "hook end", listener: (hook: Hook) => void): this;
-    prependOnceListener(
-      event: "hook end",
-      listener: (hook: Hook) => void
-    ): this;
+    prependOnceListener(event: "hook end", listener: (hook: Hook) => void): this;
     emit(name: "hook end", hook: Hook): boolean;
   }
   // #endregion Runner "hook end" event
@@ -1746,18 +1724,9 @@ declare namespace Mocha {
     on(event: "fail", listener: (test: Test, err: any) => void): this;
     once(event: "fail", listener: (test: Test, err: any) => void): this;
     addListener(event: "fail", listener: (test: Test, err: any) => void): this;
-    removeListener(
-      event: "fail",
-      listener: (test: Test, err: any) => void
-    ): this;
-    prependListener(
-      event: "fail",
-      listener: (test: Test, err: any) => void
-    ): this;
-    prependOnceListener(
-      event: "fail",
-      listener: (test: Test, err: any) => void
-    ): this;
+    removeListener(event: "fail", listener: (test: Test, err: any) => void): this;
+    prependListener(event: "fail", listener: (test: Test, err: any) => void): this;
+    prependOnceListener(event: "fail", listener: (test: Test, err: any) => void): this;
     emit(name: "fail", test: Test, err: any): boolean;
   }
   // #endregion Runner "fail" event
@@ -1779,10 +1748,7 @@ declare namespace Mocha {
     addListener(event: string, listener: (...args: any[]) => void): this;
     removeListener(event: string, listener: (...args: any[]) => void): this;
     prependListener(event: string, listener: (...args: any[]) => void): this;
-    prependOnceListener(
-      event: string,
-      listener: (...args: any[]) => void
-    ): this;
+    prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     emit(name: string, ...args: any[]): boolean;
   }
   // #endregion Runner untyped events
@@ -2100,10 +2066,7 @@ declare namespace Mocha {
     addListener(event: "beforeAll", listener: (hook: Hook) => void): this;
     removeListener(event: "beforeAll", listener: (hook: Hook) => void): this;
     prependListener(event: "beforeAll", listener: (hook: Hook) => void): this;
-    prependOnceListener(
-      event: "beforeAll",
-      listener: (hook: Hook) => void
-    ): this;
+    prependOnceListener(event: "beforeAll", listener: (hook: Hook) => void): this;
     emit(name: "beforeAll", hook: Hook): boolean;
   }
   // #endregion Suite "beforeAll" event
@@ -2114,10 +2077,7 @@ declare namespace Mocha {
     addListener(event: "afterAll", listener: (hook: Hook) => void): this;
     removeListener(event: "afterAll", listener: (hook: Hook) => void): this;
     prependListener(event: "afterAll", listener: (hook: Hook) => void): this;
-    prependOnceListener(
-      event: "afterAll",
-      listener: (hook: Hook) => void
-    ): this;
+    prependOnceListener(event: "afterAll", listener: (hook: Hook) => void): this;
     emit(name: "afterAll", hook: Hook): boolean;
   }
   // #endregion Suite "afterAll" event
@@ -2128,10 +2088,7 @@ declare namespace Mocha {
     addListener(event: "beforeEach", listener: (hook: Hook) => void): this;
     removeListener(event: "beforeEach", listener: (hook: Hook) => void): this;
     prependListener(event: "beforeEach", listener: (hook: Hook) => void): this;
-    prependOnceListener(
-      event: "beforeEach",
-      listener: (hook: Hook) => void
-    ): this;
+    prependOnceListener(event: "beforeEach", listener: (hook: Hook) => void): this;
     emit(name: "beforeEach", hook: Hook): boolean;
   }
   // #endregion Suite "beforeEach" event
@@ -2142,10 +2099,7 @@ declare namespace Mocha {
     addListener(event: "afterEach", listener: (hook: Hook) => void): this;
     removeListener(event: "afterEach", listener: (hook: Hook) => void): this;
     prependListener(event: "afterEach", listener: (hook: Hook) => void): this;
-    prependOnceListener(
-      event: "afterEach",
-      listener: (hook: Hook) => void
-    ): this;
+    prependOnceListener(event: "afterEach", listener: (hook: Hook) => void): this;
     emit(name: "afterEach", hook: Hook): boolean;
   }
   // #endregion Suite "afterEach" event
@@ -2208,12 +2162,7 @@ declare namespace Mocha {
       event: "pre-require",
       listener: (context: MochaGlobals, file: string, mocha: Mocha) => void
     ): this;
-    emit(
-      name: "pre-require",
-      context: MochaGlobals,
-      file: string,
-      mocha: Mocha
-    ): boolean;
+    emit(name: "pre-require", context: MochaGlobals, file: string, mocha: Mocha): boolean;
   }
   // #endregion Suite "pre-require" event
   // #region Suite "require" event
@@ -2286,10 +2235,7 @@ declare namespace Mocha {
     addListener(event: string, listener: (...args: any[]) => void): this;
     removeListener(event: string, listener: (...args: any[]) => void): this;
     prependListener(event: string, listener: (...args: any[]) => void): this;
-    prependOnceListener(
-      event: string,
-      listener: (...args: any[]) => void
-    ): this;
+    prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     emit(name: string, ...args: any[]): boolean;
   }
   // #endregion Runner untyped events
